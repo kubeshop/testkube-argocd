@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: testkube-tests
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: REPOSITORY_URL
+    targetRevision: HEAD
+    path: TESTS_PATH_IN_REPOSITORY
+    plugin:
+      name: testkube
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: testkube
