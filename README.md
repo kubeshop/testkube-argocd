@@ -24,14 +24,15 @@ kubectl patch configmaps -n argocd argocd-cm --patch-file customization/argocd-p
 
 ### 3. Create an ArgoCD application that uses the Testkube plugin 
 
-In [`testkube-application.yaml`](customization/testkube-application.yaml) update the field:
+In [`testkube.yaml`](applications/testkube.yaml) update the field:
+ - `APPLICATION_NAME` with the unique name of ArgoCD application
  - `REPOSITORY_URL` with the Git repository containing your test definitions 
  - `TESTS_PATH_IN_REPOSITORY` with the path to the tests folder
 
 Create the application by running the command
 
 ```sh
-kubectl apply -f customization/testkube-application.yaml
+kubectl apply -f applications/testkube.yaml
 ```
 
 ## Setup ArgoCD on Linux or MacOS with Setup Script
