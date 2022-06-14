@@ -13,4 +13,4 @@ spec:
       name: testkube
   destination:
     server: https://kubernetes.default.svc
-    namespace: testkube
+    namespace: TESTKUBE_NAMESPACE

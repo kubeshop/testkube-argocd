@@ -26,6 +26,7 @@ kubectl patch configmaps -n argocd argocd-cm --patch-file customization/argocd-p
 
 In [`testkube.yaml`](applications/testkube.yaml) update the field:
  - `APPLICATION_NAME` with the unique name of ArgoCD application
+ - `TESTKUBE_NAMESPACE` with Testkube namespace
  - `REPOSITORY_URL` with the Git repository containing your test definitions 
  - `TESTS_PATH_IN_REPOSITORY` with the path to the tests folder
 
