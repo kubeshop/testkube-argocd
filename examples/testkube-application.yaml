@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+ name: testkube-tests
+ namespace: argocd
+spec:
+ project: default
+ source:
+   repoURL: https://github.com/kubeshop/testkube-argocd.git
+   targetRevision: HEAD
+   path: examples/postman-collections
+   plugin:
+     name: testkube
+ destination:
+   server: https://kubernetes.default.svc
+   namespace: testkube

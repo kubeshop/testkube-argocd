@@ -1,0 +1,7 @@
+data:
+  configManagementPlugins: |
+    - name: testkube
+      generate:
+        command: ["bash", "-c"]
+        args: ["testkube generate tests-crds ."]
+      lockRepo: true
