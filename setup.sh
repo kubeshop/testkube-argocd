@@ -48,20 +48,12 @@ elif [[ -z $repo_path ]]; then
 fi
 
 
-PATCH_MANIFEST=patch.yaml
-PLUGINS_MANIFEST=argocd-plugins.yaml
-TESTKUBE_MANIFEST=testkube.yaml
-
-curl -O https://raw.githubusercontent.com/kubeshop/testkube-argocd/main/customization/${PATCH_MANIFEST}
-curl -O https://raw.githubusercontent.com/kubeshop/testkube-argocd/main/customization/${PLUGINS_MANIFEST}
-curl -O https://raw.githubusercontent.com/kubeshop/testkube-argocd/main/applications/${TESTKUBE_MANIFEST}
+PATCH_MANIFEST=customization/patch.yaml
+PLUGINS_MANIFEST=customization/argocd-plugins.yaml
+TESTKUBE_MANIFEST=applications/testkube.yaml
 
 sed -i '' "s/APPLICATION_NAME/${app_name}/;s/TESTKUBE_NAMESPACE/${testkube_namespace}/;s/REPOSITORY_URL/${repo_url}/;s/TESTS_PATH_IN_REPOSITORY/${repo_path}/" ${TESTKUBE_MANIFEST}
 
 kubectl patch deployments.apps -n argocd argocd-repo-server --type json --patch-file "$PATCH_MANIFEST"
 kubectl patch configmaps -n argocd argocd-cm --patch-file "$PLUGINS_MANIFEST"
 kubectl apply -f "$TESTKUBE_MANIFEST"
-
-rm -f ${PATCH_MANIFEST}
-rm -f ${PLUGINS_MANIFEST}
-rm -f ${TESTKUBE_MANIFEST}

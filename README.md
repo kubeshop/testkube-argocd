@@ -41,5 +41,5 @@ kubectl apply -f applications/testkube.yaml
 To setup on Linux or MacOs, run
 
 ```sh
-bash < <(curl -sSLf https://kubeshop.github.io/testkube-argocd/setup.sh )
+./setup.sh --app_name <APPLICATION_NAME> --testkube_namespace <TESTKUBE_NAMESPACE> --repo_url <REPOSITORY_URL> --repo_path <TESTS_PATH_IN_REPOSITORY>
 ```
