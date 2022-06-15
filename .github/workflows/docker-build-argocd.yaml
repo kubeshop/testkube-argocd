@@ -1,6 +1,5 @@
 name: Docker images
 on:
-  push:
     repository_dispatch:
       types: [ trigger-argocd-image-build ]
 
