@@ -41,3 +41,16 @@ jobs:
           platforms: linux/amd64,linux/arm64
           build-args: |
             VERSION=${{ github.event.client_payload.release_version }}
+
+      - name: Modifiy patch.yaml file with new Tag version
+        run: |
+          export release_tag=${{ github.event.client_payload.release_version }}
+          sed -i "s/\(.*value:.*testkube-argocd.*\:\).*$/\1$release_tag/g" patch.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config --global "kubeshop-bot"
+          git config --global user.email "kubeshop-bot@kubeshop.io"
+          git add -A
+          git commit -m "New Docker image version is: ${{ github.event.client_payload.release_version }}"
+          git push
