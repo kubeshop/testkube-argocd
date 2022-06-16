@@ -49,8 +49,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global "kubeshop-bot"
-          git config --global user.email "kubeshop-bot@kubeshop.io"
+          git config user.name "kubeshop-bot"
+          git config user.email "kubeshop-bot@kubeshop.io"
           git add -A
           git commit -m "New Docker image version is: ${{ github.event.client_payload.release_version }}"
           git push
