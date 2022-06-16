@@ -45,7 +45,7 @@ jobs:
       - name: Modifiy patch.yaml file with new Tag version
         run: |
           export release_tag=${{ github.event.client_payload.release_version }}
-          sed -i "s/\(.*value:.*testkube-argocd.*\:\).*$/\1$release_tag/g" patch.yaml
+          sed -i "s/\(.*value:.*testkube-argocd.*\:\).*$/\1$release_tag/g" customization/patch.yaml
 
       - name: Commit and push changes
         run: |
