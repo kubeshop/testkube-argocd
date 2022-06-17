@@ -43,3 +43,9 @@ To setup on Linux or MacOs, run
 ```sh
 ./setup.sh --app_name <APPLICATION_NAME> --testkube_namespace <TESTKUBE_NAMESPACE> --repo_url <REPOSITORY_URL> --repo_path <TESTS_PATH_IN_REPOSITORY>
 ```
+
+To use script for the exemples in this repository run
+
+```sh
+./setup.sh --app_name testkube-argo --testkube_namespace testkube --repo_url https://github.com/kubeshop/testkube-argocd --repo_path examples/postman-collections
+```
