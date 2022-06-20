@@ -10,7 +10,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends curl jq \
  && if ${VERSION} ; \
     then \
-      if curl -s -f --output /dev/null --connect-timeout 5 https://api.github.com/repos/kubeshop/testwwkube/releases/latest; \
+      if curl -s -f --output /dev/null --connect-timeout 5 https://api.github.com/repos/kubeshop/testkube/releases/latest; \
         then export VERSION=$(curl -s -f https://api.github.com/repos/kubeshop/testkube/releases/latest | jq -r .tag_name | cut -c2-); \
       else \
         echo "VERSION is not set, and GitHub repo is unavailable, exiting"; \
