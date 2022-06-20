@@ -20,7 +20,7 @@ RUN apt-get update \
  ## Configure testkube
  && mkdir .testkube && echo "{}" > .testkube/config.json \
  ## Download testkube and move to bin directory
- && curl -L "https://github.com/kubeshop/testkube/releases/download/v$VERSION/testkube_${VERSION}_${PLATFORM}.tar.gz" | tar -xzvf - \
+ && curl -L "https://github.com/kubeshop/testkube/releases/download/v${VERSION}/testkube_${VERSION}_${PLATFORM}.tar.gz" | tar -xzvf - \
  && mv kubectl-testkube /usr/local/bin/testkube \
  && chmod +x /usr/local/bin/testkube \
  && rm -rf LICENSE README.md \
