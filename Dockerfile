@@ -8,8 +8,14 @@ ENV PLATFORM="Linux_x86_64"
 # Install wget to download testkube
 RUN apt-get update \
  && apt-get install -y --no-install-recommends curl jq \
- && if $VERSION; \
-    then export VERSION=$(curl -s https://api.github.com/repos/kubeshop/testkube/releases/latest | jq -r .tag_name | cut -c2-); \
+ && if ${VERSION} ; \
+    then \
+      if curl -s -f --output /dev/null --connect-timeout 5 https://api.github.com/repos/kubeshop/testwwkube/releases/latest; \
+        then export VERSION=$(curl -s -f https://api.github.com/repos/kubeshop/testkube/releases/latest | jq -r .tag_name | cut -c2-); \
+      else \
+        echo "VERSION is not set, and GitHub repo is unavailable, exiting"; \
+        exit 1; \
+      fi \
     fi \
  ## Configure testkube
  && mkdir .testkube && echo "{}" > .testkube/config.json \
