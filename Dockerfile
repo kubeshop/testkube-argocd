@@ -1,4 +1,4 @@
-FROM argoproj/argocd:latest
+FROM argoproj/argocd:v2.4.7
 # Switch to root for the ability to perform install
 USER root
 # Pass testkube binary version as an argument, e.g. 1.1.1
