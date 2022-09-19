@@ -22,6 +22,20 @@ In order to define the name of the plugin that will be used by an ArgoCD applica
 kubectl patch configmaps -n argocd argocd-cm --patch-file customization/argocd-plugins.yaml
 ```
 
+If there is need to pass executor arguments to the test, add ```--executor-args``` to the Testkube command in customization/argocd-plugin.yaml.
+
+Note: The flag will be added to all the test CRDs that will be generated.
+
+```yaml
+data:
+  configManagementPlugins: |
+    - name: testkube
+      generate:
+        command: ["bash", "-c"]
+        args: ["testkube generate tests-crds . --executor-args '--executor-flag' "]
+      lockRepo: true
+```
+
 ### 3. Create an ArgoCD application that uses the Testkube plugin 
 
 In [`testkube.yaml`](applications/testkube.yaml) update the field:
