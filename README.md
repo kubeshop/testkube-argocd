@@ -22,7 +22,7 @@ In order to define the name of the plugin that will be used by an ArgoCD applica
 kubectl patch configmaps -n argocd argocd-cm --patch-file customization/argocd-plugins.yaml
 ```
 
-If there is need to pass executor arguments to the test, it can be achieved adding ```--executor-args``` to the testkube comand in customization/argocd-plugin.yaml 
+If there is need to pass executor arguments to the test, add ```--executor-args``` to the Testkube command in customization/argocd-plugin.yaml.
 
 Note: The flag will be added to all the test CRDs that will be generated.
 
