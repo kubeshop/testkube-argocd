@@ -1,6 +1,6 @@
 - op: replace
   path: /spec/template/spec/containers/0/image
-  value: kubeshop/testkube-argocd:1.9.9
+  value: kubeshop/testkube-argocd:1.9.10
 - op: replace
   path: /spec/template/spec/initContainers/0/image
-  value: kubeshop/testkube-argocd:1.9.9
+  value: kubeshop/testkube-argocd:1.9.10
