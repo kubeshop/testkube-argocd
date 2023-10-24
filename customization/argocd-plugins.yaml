@@ -12,7 +12,7 @@ data:
     spec:
       version: v1.0
       generate:
-        command: [sh, -c]
+        command: [bash, -c]
         args:
           - |
             testkube generate tests-crds .
