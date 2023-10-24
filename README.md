@@ -4,36 +4,48 @@ This repository sets up ArgoCD to use Testkube to generate testing resource mani
 
 ## Manual ArgoCD configuration
 
-### 1. Patching ArgoCD's deployment
+### 1. Create a ConfigMap manifest 
 
-The `argocd-repo-server` deployment images need to be replaced by the testkube argocd Docker image.
+In order to define the name of the plugin that will be used by an ArgoCD application, and to define the command ArgoCD should run to generate the manifests when the plugin is used, run:
 
+```shell
+kubectl apply -f customization/argocd-plugins.yaml
+```
+This will create a ConfigMap resource - `argocd-cm-plugin` with `ConfigManagementPlugin` specifications.
+
+### 2. Patching ArgoCD's deployment
+
+To install a plugin, patch `argocd-repo-server` deployment to run the plugin container as a sidecar.
 Apply the following the command: 
 
 ```sh
-kubectl patch deployments.apps -n argocd argocd-repo-server --type json --patch-file customization/patch.yaml
+kubectl patch deployments.apps -n argocd argocd-repo-server --patch-file customization/deployment.yaml
 ```
 
-### 2. Define Testkube in ArgoCD PluginConfigurattionManagement
 
-In order to define the name of the plugin that will be used by an ArgoCD application, and to define the command ArgoCD should run to generate the manifests when the plugin is used, run: 
-
-```sh
-kubectl patch configmaps -n argocd argocd-cm --patch-file customization/argocd-plugins.yaml
-```
-
-If there is need to pass executor arguments to the test, add ```--executor-args``` to the Testkube command in customization/argocd-plugin.yaml.
+If there is need to pass executor arguments to the test, add ```--executor-args``` to the Testkube command in customization/argocd-plugins.yaml.
 
 Note: The flag will be added to all the test CRDs that will be generated.
 
 ```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm-plugin
+  namespace: argocd
 data:
-  configManagementPlugins: |
-    - name: testkube
+  plugin.yaml: |
+    apiVersion: argoproj.io/v1alpha1
+    kind: ConfigManagementPlugin
+    metadata:
+      name: testkube
+    spec:
+      version: v1.0
       generate:
-        command: ["bash", "-c"]
-        args: ["testkube generate tests-crds . --executor-args '--executor-flag' "]
-      lockRepo: true
+        command: [sh, -c]
+        args:
+          - |
+            testkube generate tests-crds . --executor-args '--executor-flag'
 ```
 
 ### 3. Create an ArgoCD application that uses the Testkube plugin 
