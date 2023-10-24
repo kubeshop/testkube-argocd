@@ -48,15 +48,25 @@ data:
             testkube generate tests-crds . --executor-args '--executor-flag'
 ```
 
-### 3. Create an ArgoCD application that uses the Testkube plugin 
+### 3. Create an ArgoCD application that uses the Testkube plugin
 
+You may easily deploy out test application that resides in `examples` folder, by running the following command:
+```shell
+kubectl apply -f examples/testkube-application.yaml
+```
+After apply you will see `testkube-tests` Application with two synced tests in Argo UI, or in a terminal, using the command:
+```shell
+kubectl get application -n argocd
+```
+
+In order to customize the Application file, please make use of the `testkube.yaml`file:
 In [`testkube.yaml`](applications/testkube.yaml) update the field:
  - `APPLICATION_NAME` with the unique name of ArgoCD application
  - `TESTKUBE_NAMESPACE` with Testkube namespace
  - `REPOSITORY_URL` with the Git repository containing your test definitions 
  - `TESTS_PATH_IN_REPOSITORY` with the path to the tests folder
 
-Create the application by running the command
+Create the application by running the command:
 
 ```sh
 kubectl apply -f applications/testkube.yaml
@@ -70,7 +80,7 @@ To setup on Linux or MacOs, run
 ./setup.sh --app_name <APPLICATION_NAME> --testkube_namespace <TESTKUBE_NAMESPACE> --repo_url <REPOSITORY_URL> --repo_path <TESTS_PATH_IN_REPOSITORY>
 ```
 
-To use script for the exemples in this repository run
+To use the script for the examples in this repository run
 
 ```sh
 ./setup.sh --app_name testkube-argo --testkube_namespace testkube --repo_url https://github.com/kubeshop/testkube-argocd --repo_path examples/postman-collections
