@@ -10,7 +10,7 @@ spec:
    targetRevision: HEAD
    path: examples/postman-collections
    plugin:
-     name: testkube
+     name: "testkube-v1.0"
  destination:
    server: https://kubernetes.default.svc
    namespace: testkube

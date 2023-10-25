@@ -10,7 +10,7 @@ spec:
     targetRevision: HEAD
     path: $TESTS_PATH_IN_REPOSITORY
     plugin:
-      name: testkube
+      name: "testkube-v1.0"
   destination:
     server: https://kubernetes.default.svc
     namespace: $TESTKUBE_NAMESPACE

@@ -47,8 +47,7 @@ elif [[ -z $repo_path ]]; then
     die "Missing parameter --repo_path"
 fi
 
-
-PATCH_MANIFEST=customization/patch.yaml
+PATCH_MANIFEST=customization/deployment.yaml
 PLUGINS_MANIFEST=customization/argocd-plugins.yaml
 TESTKUBE_MANIFEST=applications/testkube.yaml
 
@@ -59,8 +58,8 @@ export TESTS_PATH_IN_REPOSITORY=$repo_path
 
 envsubst < $TESTKUBE_MANIFEST > modifed_manifest.yaml
 
-kubectl patch deployments.apps -n argocd argocd-repo-server --type json --patch-file "$PATCH_MANIFEST"
-kubectl patch configmaps -n argocd argocd-cm --patch-file "$PLUGINS_MANIFEST"
+kubectl apply -f "$PLUGINS_MANIFEST"
+kubectl patch deployments.apps -n argocd argocd-repo-server --patch-file "$PATCH_MANIFEST"
 kubectl apply -f modifed_manifest.yaml
 
 rm -f modifed_manifest.yaml
