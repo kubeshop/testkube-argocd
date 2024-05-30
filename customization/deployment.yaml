@@ -8,7 +8,7 @@ spec:
       containers:
       - name: testkube
         command: [/var/run/argocd/argocd-cmp-server]
-        image: kubeshop/testkube-argocd:1.17.49
+        image: kubeshop/testkube-argocd:1.17.50
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
